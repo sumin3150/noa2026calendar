@@ -41,7 +41,17 @@ h2{margin:28px 0 10px;font-size:clamp(18px,2.5vw,24px)}
 .sample-grid{display:grid;grid-template-columns:1fr;gap:12px;margin-top:8px}
 .sample-card{margin:0;border:1px solid var(--line);border-radius:10px;padding:8px;background:#fff}
 .sample-card img{display:block;width:100%;height:auto;border-radius:6px}
-.sample-card figcaption{margin-top:6px;color:var(--muted);font-size:.9rem}
+.sample-card .sample-img{
+  aspect-ratio: 4 / 3; /* 同じ縦横比で高さを統一 */
+  object-fit: contain;
+  background:#f6f7f9;
+  border:1px solid var(--line);
+  border-radius:8px;
+}
+.sample-card figcaption{margin-top:6px;color:var(--muted);font-size:.9rem;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.size-badge{display:inline-block;border:1px solid var(--line);background:#fff;border-radius:999px;padding:2px 8px;font-size:.8rem;color:#666}
+.notes-grid{display:grid;grid-template-columns:1fr;gap:10px;margin-top:10px}
+.note-card{background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px;color:var(--fg)}
 .cta{margin:20px 0}
 .btn{appearance:none;border:1px solid var(--line);background:#fff7fb;color:#333;border-radius:999px;padding:10px 14px;font-weight:600}
 .btn-cute{background:linear-gradient(180deg,#ffe9f3,#ffd3e7);border-color:#ffc1dc;color:#8c3461;box-shadow:0 2px 0 #f3a9ca,0 6px 18px rgba(255, 145, 194, .45)}
@@ -54,6 +64,7 @@ h2{margin:28px 0 10px;font-size:clamp(18px,2.5vw,24px)}
   .products{grid-template-columns:1fr 1fr}
   .gallery-grid{grid-template-columns:1fr 1fr 1fr}
   .sample-grid{grid-template-columns:1fr 1fr}
+  .notes-grid{grid-template-columns:1fr 1fr}
 }
 @media(min-width:1000px){
   .gallery-grid{grid-template-columns:repeat(4,1fr)}
