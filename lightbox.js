@@ -4,6 +4,13 @@
   const img = backdrop ? backdrop.querySelector('.lightbox-img') : null;
   if (!backdrop || !img) return;
 
+  // Ensure sample images are zoomable on click
+  try {
+    document.querySelectorAll('img.sample-img').forEach((el) => {
+      if (!el.classList.contains('zoomable')) el.classList.add('zoomable');
+    });
+  } catch (_) {}
+
   const open = (src, alt) => {
     img.src = src; img.alt = alt || '拡大画像';
     backdrop.hidden = false;
@@ -34,4 +41,3 @@
     if (e.key === 'Escape' && !backdrop.hidden) close();
   });
 })();
-
