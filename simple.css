@@ -1,4 +1,4 @@
-:root { --fg:#111; --muted:#555; --bg:#fff; --line:#e5e7eb; --brand:#111; }
+﻿:root { --fg:#111; --muted:#555; --bg:#fff; --line:#e5e7eb; --brand:#111; }
 /* テーマ変数（デフォルトはピンク調） */
 body.theme-pink{
   --bg1:#fff1f7; /* 薄いピンク */
@@ -53,11 +53,36 @@ h2{margin:28px 0 10px;font-size:clamp(18px,2.5vw,24px)}
 .notes-grid{display:grid;grid-template-columns:1fr;gap:10px;margin-top:10px}
 .note-card{background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px;color:var(--fg)}
 .cta{margin:20px 0}
-.btn{appearance:none;border:1px solid var(--line);background:#fff7fb;color:#333;border-radius:999px;padding:10px 14px;font-weight:600}
+\.btn{appearance:none;display:inline-block;text-decoration:none;border:1px solid var(--line);background:#fff7fb;color:#333;border-radius:999px;padding:10px 14px;font-weight:600}
 .btn-cute{background:linear-gradient(180deg,#ffe9f3,#ffd3e7);border-color:#ffc1dc;color:#8c3461;box-shadow:0 2px 0 #f3a9ca,0 6px 18px rgba(255, 145, 194, .45)}
 .btn-cute:hover{transform:translateY(-1px);filter:brightness(1.02)}
 .btn-cute:active{transform:translateY(0)}
 .btn[disabled]{opacity:.7}
+
+/* Hero purchase button */
+.hero-cta{margin:8px 0 6px}
+.btn-buy{
+  appearance:none;
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  text-decoration:none;
+  border-radius:999px;
+  padding:14px 20px;
+  font-weight:800;font-size:1.05rem;
+  color:#8c3461;
+  background:linear-gradient(180deg,#ffe9f3,#ffd3e7);
+  border:2px solid #ffb9d6;
+  box-shadow:0 4px 0 #f3a9ca,0 10px 22px rgba(255,145,194,.45),0 0 0 0 rgba(255,145,194,0);
+  transform:translateY(0);
+  transition:transform .15s ease,filter .2s ease,box-shadow .3s ease;
+  animation:buy-pop 2.6s ease-in-out infinite;
+}
+.btn-buy:hover{transform:translateY(-1px);filter:brightness(1.02)}
+.btn-buy:active{transform:translateY(0)}
+.btn-buy:focus-visible{outline:3px solid #ff96c0;outline-offset:3px}
+@keyframes buy-pop{
+  0%,100%{box-shadow:0 4px 0 #f3a9ca,0 10px 22px rgba(255,145,194,.45),0 0 0 0 rgba(255,145,194,0)}
+  50%{box-shadow:0 6px 0 #f3a9ca,0 14px 26px rgba(255,145,194,.5),0 0 0 8px rgba(255,145,194,.12)}
+}
 .note{color:var(--muted);font-size:.95rem}
 .footer{margin-top:24px;padding-top:12px;border-top:1px solid var(--line);color:var(--muted)}
 @media(min-width:700px){
@@ -72,6 +97,8 @@ h2{margin:28px 0 10px;font-size:clamp(18px,2.5vw,24px)}
 }
 @media(max-width:640px){
   .section-head .btn{width:100%}
+  .hero-cta .btn-buy{width:100%}
+  .section-head .btn-buy{width:100%}
 }
 @media(max-width:480px){
   .btn{padding:12px 16px}
@@ -90,10 +117,36 @@ h2{margin:28px 0 10px;font-size:clamp(18px,2.5vw,24px)}
 
 /* 購入者特典の文言を指定テキストに差し替え */
 section[aria-labelledby="perk-title"] > p:not(.perk-desc){display:none}
-section[aria-labelledby="perk-title"]::after{
-  content:"NOAたちの誕生日に、あけじーさん描きおろし「NOA誕生日NFT」をフリーミント（ETHチェーン）";
-  display:block;margin-top:.25rem;color:var(--fg)
-}
+section[aria-labelledby="perk-title"]::after{`r`n  content:"NOAたちの誕生日に、あけじーさん描きおろし「NOA誕生日NFT」をフリーミント！（ETHチェーン）";`r`n  display:block;margin-top:.25rem;color:var(--fg)`r`n}
 /* 誤って重複した特典見出しを非表示（構造の整合性保護） */
 section[aria-labelledby="nft-title"] > h2#perk-title,
 section[aria-labelledby="nft-title"] > h2#perk-title + p{display:none}
+/* 注文モーダル */
+.order-backdrop{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(0,0,0,.5);z-index:1100}
+.order-backdrop[hidden]{display:none}
+.order-modal{width:min(560px,96vw);background:#fff;border-radius:14px;border:1px solid var(--line);box-shadow:0 20px 60px rgba(0,0,0,.35);padding:14px 14px 16px;position:relative}
+.order-close{position:absolute;top:8px;right:8px;border:none;background:transparent;font-size:22px;line-height:1;cursor:pointer;color:#8c3461;border-radius:8px;padding:6px}
+.order-close:hover{filter:brightness(1.1)}
+.order-modal h3{margin:0 0 10px;font-size:20px}
+.order-form{margin-top:6px}
+.order-grid{display:grid;grid-template-columns:1fr;gap:12px}
+.order-fields{display:grid;gap:10px}
+.field{display:block}
+.label{display:block;font-weight:700;margin:0 0 6px;color:#7a2f58}
+.hint{display:block;margin-top:4px;color:var(--muted);font-size:.8rem}
+.choice{display:inline-flex;align-items:center;gap:8px;margin-right:14px;color:#333}
+.field input[type=text],
+.field input[type=tel],
+.field textarea{width:100%;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font:inherit;background:#fff}
+.field input[type=email]{width:100%;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font:inherit;background:#fff}
+.order-preview{background:#fff;border:1px dashed #ffc1dc;border-radius:12px;padding:8px;text-align:center}
+.order-preview img{max-width:100%;height:auto;border-radius:8px;background:#f6f7f9}
+.order-preview-caption{margin-top:6px;color:var(--muted);font-size:.9rem}
+.order-preview-price{margin-top:6px;font-weight:800;color:#8c3461;font-size:1.05rem}
+.order-actions{margin-top:6px;display:flex;justify-content:flex-end}
+.order-actions .order-submit{font-size:1rem}
+@media(min-width:760px){
+  .order-grid{grid-template-columns:1fr 220px}
+}
+
+

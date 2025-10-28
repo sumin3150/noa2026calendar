@@ -21,6 +21,9 @@
       <header>
         <h1>NOAカレンダー2026</h1>
         <p class="tagline">NOAの2026年版の卓上カレンダーと壁掛けカレンダーをご用意しました。<br>購入者特典でカレンダーに記載のQRコードを読み込むと、NOA誕生日にはあけじーさん描きおろしのNOA誕生日NFTをフリーミント（ETHチェーン）がゲットできます。</p>
+        <div class="hero-cta">
+          <a class="btn-buy" href="#products-title" aria-label="注文はこちら">注文はこちら 💖</a>
+        </div>
       </header>
 
       <section aria-labelledby="samples-title">
@@ -110,6 +113,7 @@
       <section aria-labelledby="products-title">
         <div class="section-head">
           <h2 id="products-title">ラインナップと価格</h2>
+          <a class="btn-buy" href="#products-title" aria-label="注文はこちら">注文はこちら 💖</a>
         </div>
         <ul class="products" role="list">
           <li class="card">
@@ -168,6 +172,79 @@
     <div class="lightbox-backdrop" role="dialog" aria-modal="true" aria-label="画像プレビュー" hidden>
       <img class="lightbox-img" alt="拡大画像" />
     </div>
+    <!-- 注文モーダル -->
+    <div class="order-backdrop" role="dialog" aria-modal="true" aria-labelledby="order-title" hidden>
+      <div class="order-modal" role="document">
+        <button class="order-close" type="button" aria-label="閉じる">×</button>
+        <h3 id="order-title">注文フォーム</h3>
+        <form class="order-form" novalidate>
+          <div class="order-grid">
+            <div class="order-fields">
+              <label class="field">
+                <span class="label">Xのユーザ名</span>
+                <input type="text" name="x_handle" placeholder="@noa_example" required>
+              </label>
+
+              <label class="field">
+                <span class="label">あなたのウォレットアドレス（0Xか始まる数字）</span>
+                <input type="text" name="wallet" placeholder="0x0000000000000000000000000000000000000000" minlength="42" maxlength="42" pattern="0[xX][0-9A-Fa-f]{40}" required>
+              </label>
+
+              <fieldset class="field">
+                <legend class="label">商品を選択</legend>
+                <label class="choice"><input type="radio" name="product" value="desk" checked> 卓上カレンダー</label>
+                <label class="choice"><input type="radio" name="product" value="wall"> 壁掛けカレンダー</label>
+              </fieldset>
+
+              <fieldset class="field">
+                <legend class="label">お支払い方法</legend>
+                <label class="choice"><input type="radio" name="payment" value="eth" checked> ETH払い</label>
+                <label class="choice"><input type="radio" name="payment" value="jpyc"> JPYC払い</label>
+              </fieldset>
+
+              <label class="field">
+                <span class="label">お届け先の郵便番号</span>
+                <input type="text" name="postal" inputmode="numeric" pattern="\d{3}-?\d{4}" maxlength="8" placeholder="123-4567" required>
+                <small class="hint">半角数字7桁（ハイフンあり/なし可）</small>
+              </label>
+
+              <label class="field">
+                <span class="label">お届け先の住所</span>
+                <textarea name="address" rows="2" placeholder="〒123-4567 東京都〇〇区〇〇 1-2-3 NOAビル 101" required></textarea>
+              </label>
+
+              <label class="field">
+                <span class="label">お届け先の電話番号</span>
+                <input type="tel" name="phone" inputmode="tel" placeholder="090-1234-5678" required>
+              </label>
+
+              <label class="field">
+                <span class="label">お届け先の氏名</span>
+                <input type="text" name="fullname" placeholder="山田 太郎" required>
+              </label>
+            </div>
+
+            <aside class="order-preview" aria-live="polite">
+              <img id="order-preview-img" src="image2/卓上カレンダー見本.jpg" alt="選択中のカレンダー見本" loading="lazy">
+              <div id="order-preview-caption" class="order-preview-caption">卓上カレンダー 見本</div>
+              <div id="order-preview-price" class="order-preview-price"></div>
+            </aside>
+          </div>
+
+          <div class="order-actions">
+            <button class="btn-buy order-submit" type="submit" aria-label="注文確定">注文確定 ✨</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    
     <script src="lightbox.js"></script>
+    <script>
+      // 受注データ送信先（自動送信したい場合に設定）
+      // 例: Google Apps Script や任意のWebhookのURLを指定
+      // 空文字のままだとメールクライアント起動（mailto）にフォールバックします。
+      window.ORDER_ENDPOINT = '';
+    </script>
+    <script src="order.js"></script>
   </body>
   </html>
