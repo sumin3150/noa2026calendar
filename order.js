@@ -39,6 +39,24 @@
     document.body.style.overflow = '';
   };
 
+  // 背景クリックやEscキーでは閉じないように捕捉（右上ボタンのみで閉じる）
+  // 背景クリックの捕捉（キャプチャ段階で停止）
+  backdrop.addEventListener('click', (e) => {
+    if (e.target === backdrop && !backdrop.hidden) {
+      e.preventDefault();
+      e.stopPropagation();
+      if (e.stopImmediatePropagation) e.stopImmediatePropagation();
+    }
+  }, true);
+  // Escキーの捕捉（キャプチャ段階で停止）
+  document.addEventListener('keydown', (e) => {
+    if (e && e.key === 'Escape' && !backdrop.hidden) {
+      e.preventDefault();
+      e.stopPropagation();
+      if (e.stopImmediatePropagation) e.stopImmediatePropagation();
+    }
+  }, true);
+
   function setPreview(kind){
     const s = samples[kind] || samples.desk;
     if (previewImg) previewImg.src = s.src;
