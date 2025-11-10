@@ -6,6 +6,14 @@
   const modal = backdrop.querySelector('.order-modal');
   const closeBtn = backdrop.querySelector('.order-close');
   const form = backdrop.querySelector('.order-form');
+  // Remove notes field from form UI
+  try {
+    const notes = form && form.querySelector('textarea[name="notes"]');
+    if (notes) {
+      const wrap = notes.closest('.field') || notes.closest('label.field');
+      if (wrap) { wrap.remove(); } else { notes.remove(); }
+    }
+  } catch (_) {}
   const previewImg = backdrop.querySelector('#order-preview-img');
   const previewCap = backdrop.querySelector('#order-preview-caption');
   const previewPrice = backdrop.querySelector('#order-preview-price');
@@ -142,6 +150,7 @@
     })();
     const bodyText = lines.join('\r\n');
 
+    const bodyText2 = (payload.notes && payload.notes.trim()) ? bodyText : lines.slice(0, -1).join('\\r\\n');
     const endpoint = (window && window.ORDER_ENDPOINT) ? String(window.ORDER_ENDPOINT) : '';
     const finish = (ok) => {
       if (ok) {
@@ -149,7 +158,7 @@
         close();
       } else {
         // フォールバック: メールクライアント起動
-        const mailto = `mailto:sumitomo_kenji@yahoo.co.jp?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyText)}`;
+        const mailto = `mailto:sumitomo_kenji@yahoo.co.jp?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyText2)}`;
         window.location.href = mailto;
         setTimeout(close, 300);
       }
@@ -166,10 +175,10 @@
         title: subject,
         mail_title: subject,
         subject,
-        body: bodyText,
-        message: bodyText,
-        content: bodyText,
-        body_with_notes: bodyText,
+        body: bodyText2,
+        message: bodyText2,
+        content: bodyText2,
+        body_with_notes: bodyText2,
         notes_line: lines.find(l => l.indexOf('備') === 0) || `備考欄：${payload.notes || ''}`,
         x_handle: payload.x_handle,
         email: payload.email,
