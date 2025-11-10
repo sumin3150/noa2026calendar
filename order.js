@@ -163,6 +163,8 @@
     if (endpoint) {
       const formBody = new URLSearchParams({
         to: 'sumitomo_kenji@yahoo.co.jp',
+        title: subject,
+        mail_title: subject,
         subject,
         body: bodyText,
         x_handle: payload.x_handle,
