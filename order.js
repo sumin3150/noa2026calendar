@@ -136,7 +136,10 @@
       fullname: getVal('fullname'),
       notes: getVal('notes')
     };
-    const subject = 'NOAカレンダー注文情報';
+    const subject = (function(){
+      const base = 'NOAカレンダー注文情報';
+      return base + ((payload.notes && payload.notes.trim()) ? '（備考あり）' : '');
+    })();
     const bodyText = lines.join('\r\n');
 
     const endpoint = (window && window.ORDER_ENDPOINT) ? String(window.ORDER_ENDPOINT) : '';
@@ -171,7 +174,10 @@
         address: payload.address,
         phone: payload.phone,
         fullname: payload.fullname,
-        notes: payload.notes
+        notes: payload.notes,
+        remarks: payload.notes,
+        note: payload.notes,
+        memo: payload.notes
       }).toString();
       fetch(endpoint, {
         method: 'POST',
